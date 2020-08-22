@@ -48,29 +48,31 @@ public class bookManagement {
 
     }
 
-    public boolean bookExistion(String bookName) {
+    public boolean isExistBook(String nameOfBook) {
         for (int i = 0; i < library.size(); i++) {
-            if (library.get(i).equals(bookName)) {
+            if (library.get(i).getName().equals(nameOfBook)) {
                 return true;
             }
         }
         return false;
     }
 
-    public int deleteBook(String bookName) {
-        boolean check = this.bookExistion(bookName);
-        boolean response = false;
-        if (check) {
-            for (int i = 0; i < library.size(); i++) {
-                if (library.get(i).toString().equals(bookName)) {                                                            
-                }
+    public int deleteBook(String nameBook) {
+        Book book = new Book();
+        boolean isBookExist = false;
+        for (int i = 0; i < library.size(); i++) {
+            if (library.get(i).getName().equals(nameBook)) {
+                book = library.get(i);
+                isBookExist = true;
             }
+        }
+        if (isBookExist) {
+            boolean response = library.remove(book);
             if (response) {
                 return 1;
             } else {
                 return -1;
             }
-
         } else {
             return 0;
         }
@@ -92,13 +94,34 @@ public class bookManagement {
         return type;
     }
 
-    public String priceCheck(Book book, int price1, int price2) {
-        for (int i = 0; i < library.size(); i++) {
-            if (price1<book.price<price2){
-                
-            }
+    public ArrayList<Book> sortByPrice() {
+        ArrayList<Book> books = library;
+        Book temp = new Book();
+        temp.setPrice(0);
+        for (int j = 0; j < library.size(); j++) {
+            for (int i = 0; i < library.size() - 1 - j; i++) {
+                if (library.get(i).getPrice() > library.get(i + 1).getPrice()) {
+                    temp.setName(library.get(i).getName());
+                    temp.setNoOfPage(library.get(i).getNoOfPage());
+                    temp.setOrigin(library.get(i).getOrigin());
+                    temp.setType(library.get(i).getType());
+                    temp.setPrice(library.get(i).getPrice());
 
+                    library.get(i).setName(library.get(i + 1).getName());
+                    library.get(i).setPrice(library.get(i + 1).getPrice());
+                    library.get(i).setOrigin(library.get(i + 1).getOrigin());
+                    library.get(i).setType(library.get(i + 1).getType());
+                    library.get(i).setNoOfPage(library.get(i + 1).getNoOfPage());
+
+                    library.get(i + 1).setName(temp.getName());
+                    library.get(i + 1).setPrice(temp.getPrice());
+                    library.get(i + 1).setOrigin(temp.getOrigin());
+                    library.get(i + 1).setType(temp.getType());
+                    library.get(i + 1).setNoOfPage(temp.getNoOfPage());
+                }
+            }
         }
+        return library;
     }
 
     public ArrayList<String> bookTypeFilter() {

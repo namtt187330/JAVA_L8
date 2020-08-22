@@ -26,6 +26,7 @@ public class Lesson08 {
             System.out.println("3.Delete");
             System.out.println("4.Update");
             System.out.println("5.Show types book");
+            System.out.println("6.Sort by Price");
             System.out.println("0.Exit");
             int inputUser = sc.nextInt();
             sc.nextLine();
@@ -69,7 +70,7 @@ public class Lesson08 {
                 case 4:
                     System.out.println("Nhap vao ten sach muon sua");
                     String nameUpdateBook = sc.nextLine();
-                    if (bookManagement.bookExistion(nameUpdateBook)) {
+                    if (bookManagement.isExistBook(nameUpdateBook)) {
                         System.out.println("Name:");
                         String newName = sc.nextLine();
                         System.out.println("Origin:");
@@ -94,6 +95,9 @@ public class Lesson08 {
                         System.out.println(types.get(i));
                     }
                     break;
+                case 6:
+                    bookManagement.sortByPrice();
+                    bookManagement.showLib();
                 case 0:
                     return;
             }
@@ -102,4 +106,4 @@ public class Lesson08 {
         // TODO code application logic here
     }
     
-}
+
